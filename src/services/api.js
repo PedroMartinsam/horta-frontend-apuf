@@ -1,20 +1,20 @@
-import axios from 'axios'
+import axios from 'axios';
 
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || '/api',
+  baseURL: import.meta.env.VITE_API_URL,
   timeout: 10000,
-})
+});
 
 api.interceptors.response.use(
-  res => res,
-  err => {
+  (res) => res,
+  (err) => {
     if (err.response?.status === 401) {
-      localStorage.removeItem('apuf_token')
-      localStorage.removeItem('apuf_user')
-      window.location.href = '/admin/login'
+      localStorage.removeItem('apuf_token');
+      localStorage.removeItem('apuf_user');
+      window.location.href = '/admin/login';
     }
-    return Promise.reject(err)
+    return Promise.reject(err);
   }
-)
+);
 
-export default api
+export default api;
